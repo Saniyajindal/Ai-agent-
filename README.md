@@ -26,3 +26,24 @@ This project bridges that gap by combining:
 ---
 
 ## 🏗️ Architecture & Agent Workflow
+Customer Prompt (e.g., "Cancel my order ORD-104")
+│
+▼
+Agent Reasoning Core (Gemini 3.8 Flash)
+│
+[Analyzes Intent]
+│
+Does it require an action or policy check?
+├── Yes ──> Calls Registered Tool (Python Function)
+│                ├── check_return_eligibility()
+│                ├── cancel_order()
+│                └── update_shipping_address()
+│                     │
+│                     ▼
+│             Mutates Database / State
+│                     │
+└── No ───> Directly formulates factual answer
+│
+▼
+Streamlit UI Updates Live Sidebar & Chat
+
